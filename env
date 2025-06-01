@@ -1,0 +1,13 @@
+MONGO_URL="mongodb+srv://pulitarun2432:mODenCbeIERWI6Ja@cluster0.bxqdj.mongodb.net/authdb?retryWrites=true&w=majority&appName=Cluster0"
+PORT=5000
+JWT_SECRET=mysecret
+MODE=development
+MAILTRAP_TOKEN=39e09098897d577e4676fba22e5bd38c
+MAILTRAP_ENDPOINT=https://send.api.mailtrap.io/
+CLIENT_URL = http://localhost:5173
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=pulitarun2432@gmail.com
+SMTP_PASS=ypwbruvrcrzbwzva
+SENDER_EMAIL=pulitarun2432@gmail.com
+SENDER_NAME=Tarun Sumanth

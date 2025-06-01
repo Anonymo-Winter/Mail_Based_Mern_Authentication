@@ -10,7 +10,7 @@ import authRoutes from "./routes/auth.route.js";
 
 dotenv.config();
 
-if (process.env.NODE_ENV === "development") {
+if (process.env.MODE === "development") {
     console.log("Running in development mode");
 }
 

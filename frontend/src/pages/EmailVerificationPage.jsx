@@ -21,9 +21,7 @@ function EmailVerificationPage() {
             }
             setCode(newCode);
 
-            const lastFilledIndex = newCode.findLastIndex(
-                (digit) => digit !== ""
-            );
+            const lastFilledIndex = newCode.findLastIndex((digit) => digit !== "");
             const focusIndex = lastFilledIndex < 5 ? lastFilledIndex + 1 : 5;
             inputRefs.current[focusIndex].focus();
         } else {
@@ -48,6 +46,7 @@ function EmailVerificationPage() {
             toast.success("Email verified successfully");
         } catch (error) {
             console.log("error in email verification", error.message);
+            console.log(error);
         }
     };
 
@@ -81,20 +80,14 @@ function EmailVerificationPage() {
                                 }}
                                 type="text"
                                 maxLength="6"
-                                onChange={(e) =>
-                                    handleChange(index, e.target.value)
-                                }
+                                onChange={(e) => handleChange(index, e.target.value)}
                                 onKeyDown={(e) => handleKeydown(index, e)}
                                 value={digit}
                                 className="w-12 h-12 text-center text-2xl font-bold bg-gray-700 text-white border-2 border-gray-500 rounded-lg focus:border-green-500 focus:outline-none"
                             ></input>
                         ))}
                     </div>
-                    {error && (
-                        <p className="text-red-500 font-semibold mt-2">
-                            {error}
-                        </p>
-                    )}
+                    {error && <p className="text-red-500 font-semibold mt-2">{error}</p>}
                     <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}

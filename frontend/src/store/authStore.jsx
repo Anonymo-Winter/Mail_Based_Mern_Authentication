@@ -1,10 +1,7 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const API_URL =
-    import.meta.env.MODE === "development"
-        ? "http://localhost:5000/api/auth"
-        : "/api/auth";
+const API_URL = import.meta.env.MODE === "development" ? "http://localhost:5000/api/auth" : "/api/auth";
 
 axios.defaults.withCredentials = true;
 
@@ -91,6 +88,7 @@ export const useAuthStore = create((set) => ({
                 error: error.response.data.message || "Error verifying email",
                 isLoading: false,
             });
+            console.log(error);
             throw error;
         }
     },
@@ -117,9 +115,7 @@ export const useAuthStore = create((set) => ({
         } catch (error) {
             set({
                 isLoading: false,
-                error:
-                    error.response.data.message ||
-                    "Error sending reset password email",
+                error: error.response.data.message || "Error sending reset password email",
             });
             throw error;
         }
@@ -127,16 +123,12 @@ export const useAuthStore = create((set) => ({
     resetPassword: async (token, password) => {
         set({ isLoading: true, error: null });
         try {
-            const response = await axios.post(
-                `${API_URL}/reset-password/${token}`,
-                { password }
-            );
+            const response = await axios.post(`${API_URL}/reset-password/${token}`, { password });
             set({ message: response.data.message, isLoading: false });
         } catch (error) {
             set({
                 isLoading: false,
-                error:
-                    error.response.data.message || "Error resetting password",
+                error: error.response.data.message || "Error resetting password",
             });
             throw error;
         }

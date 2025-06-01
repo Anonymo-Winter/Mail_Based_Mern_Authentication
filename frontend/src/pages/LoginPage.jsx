@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useAuthStore } from "../store/authStore";
 const LoginPage = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("pulitarun2432@gmail.com");
+    const [password, setPassword] = useState("puli2432");
 
     const { isLoading, login, error } = useAuthStore();
 
@@ -44,18 +44,11 @@ const LoginPage = () => {
                         }}
                     />
                     <div className="flex items-center mb-6">
-                        <Link
-                            to="/forgot-password"
-                            className="text-sm text-green-500 hover:underline"
-                        >
+                        <Link to="/forgot-password" className="text-sm text-green-500 hover:underline">
                             Forgot Password
                         </Link>
                     </div>
-                    {error && (
-                        <p className="text-red-500 font-semibold mb-4">
-                            {error}
-                        </p>
-                    )}
+                    {error && <p className="text-red-500 font-semibold mb-4">{error}</p>}
                     <motion.button
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
@@ -63,21 +56,14 @@ const LoginPage = () => {
                         type="submit"
                         disabled={isLoading}
                     >
-                        {isLoading ? (
-                            <Loader className="w-6 h-6 animate-spin  mx-auto" />
-                        ) : (
-                            "Login"
-                        )}
+                        {isLoading ? <Loader className="w-6 h-6 animate-spin  mx-auto" /> : "Login"}
                     </motion.button>
                 </form>
             </div>
             <div className="px-8 py-4 bg-gray-900 bg-opacity-50 flex justify-center">
                 <p className="text-sm text-white">
                     Don't have an account?{" "}
-                    <Link
-                        to="/signup"
-                        className="text-green-500 hover:underline"
-                    >
+                    <Link to="/signup" className="text-green-500 hover:underline">
                         Sign Up
                     </Link>
                 </p>

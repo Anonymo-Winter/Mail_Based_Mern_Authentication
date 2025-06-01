@@ -7,7 +7,7 @@ import {
     sendResetSuccessEmail,
     sendVerificationEmail,
     sendWelcomeEmail,
-} from "../mailtrap/emails.js";
+} from "../mailtrap/emailService.js";
 import { User } from "../models/user.model.js";
 
 export const signup = async (req, res) => {
@@ -22,15 +22,11 @@ export const signup = async (req, res) => {
         console.log("userAlreadyExists", userAlreadyExists);
 
         if (userAlreadyExists) {
-            return res
-                .status(400)
-                .json({ success: false, message: "User already exists" });
+            return res.status(400).json({ success: false, message: "User already exists" });
         }
 
         const hashedPassword = await bcryptjs.hash(password, 10);
-        const verificationToken = Math.floor(
-            100000 + Math.random() * 900000
-        ).toString();
+        const verificationToken = Math.floor(100000 + Math.random() * 900000).toString();
 
         const user = new User({
             email,
@@ -101,15 +97,11 @@ export const login = async (req, res) => {
     try {
         const user = await User.findOne({ email });
         if (!user) {
-            return res
-                .status(400)
-                .json({ success: false, message: "Invalid credentials" });
+            return res.status(400).json({ success: false, message: "Invalid credentials" });
         }
         const isPasswordValid = await bcryptjs.compare(password, user.password);
         if (!isPasswordValid) {
-            return res
-                .status(400)
-                .json({ success: false, message: "Invalid credentials" });
+            return res.status(400).json({ success: false, message: "Invalid credentials" });
         }
 
         generateTokensAndSetCookies(res, user._id);
@@ -142,9 +134,7 @@ export const forgotPassword = async (req, res) => {
         const user = await User.findOne({ email });
 
         if (!user) {
-            return res
-                .status(400)
-                .json({ success: false, message: "User not found" });
+            return res.status(400).json({ success: false, message: "User not found" });
         }
 
         // Generate reset token
@@ -157,10 +147,7 @@ export const forgotPassword = async (req, res) => {
         await user.save();
 
         // send email
-        await sendPasswordResetEmail(
-            user.email,
-            `${process.env.CLIENT_URL}/reset-password/${resetToken}`
-        );
+        await sendPasswordResetEmail(user.email, `${process.env.CLIENT_URL}/reset-password/${resetToken}`);
 
         res.status(200).json({
             success: true,
@@ -213,9 +200,7 @@ export const checkAuth = async (req, res) => {
     try {
         const user = await User.findById(req.userId).select("-password");
         if (!user) {
-            return res
-                .status(400)
-                .json({ success: false, message: "User not found" });
+            return res.status(400).json({ success: false, message: "User not found" });
         }
 
         res.status(200).json({ success: true, user });

@@ -12,7 +12,9 @@ const LoginPage = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        await login(email, password);
+        try {
+            const res = await login(email, password);
+        } catch (error) {}
     };
     return (
         <motion.div

@@ -5,6 +5,7 @@ import { useAuthStore } from "../store/authStore";
 import toast from "react-hot-toast";
 
 function EmailVerificationPage() {
+    const { user } = useAuthStore();
     const [code, setCode] = useState(["", "", "", "", "", ""]);
     const inputRefs = useRef([]);
     const navigate = useNavigate();
@@ -56,6 +57,10 @@ function EmailVerificationPage() {
             handleSubmit(new Event("submit"));
         }
     }, [code]);
+
+    if (!user) {
+        navigate("/login");
+    }
 
     return (
         <div className="max-w-md w-full bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden">

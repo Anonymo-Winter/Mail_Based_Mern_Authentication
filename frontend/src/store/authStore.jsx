@@ -48,7 +48,6 @@ export const useAuthStore = create((set) => ({
                 isLoading: false,
             });
         } catch (error) {
-            console.log(error);
             set({
                 error: error.response?.data?.message || "Something Went Wrong",
                 isLoading: false,
@@ -89,7 +88,6 @@ export const useAuthStore = create((set) => ({
                 error: error.response.data.message || "Error verifying email",
                 isLoading: false,
             });
-            console.log(error);
             throw error;
         }
     },

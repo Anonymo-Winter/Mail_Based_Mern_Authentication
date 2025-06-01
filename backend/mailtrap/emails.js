@@ -15,9 +15,10 @@ export const sendVerificationEmail = async (email, verificationToken) => {
             html: VERIFICATION_EMAIL_TEMPLATE.replace("verificationCode", verificationToken),
             category: "Email Verification",
         });
-        console.log("verification email sent successfully!", reponse);
+        if (process.env.MODE === "development") console.log("verification email sent successfully!", reponse);
     } catch (error) {
-        console.log("error occured while sending verification email", error.message);
+        if (process.env.MODE === "development")
+            console.log("error occured while sending verification email", error.message);
         throw new Error("error sending mail");
     }
 };
@@ -34,7 +35,7 @@ export const sendWelcomeEmail = async (email, name) => {
                 name: name,
             },
         });
-        console.log("Welcome email sent successfully!", response);
+        if (process.env.MODE == "development") console.log("Welcome email sent successfully!", response);
     } catch (error) {
         console.warn("Error sending welcome email", error.message);
         throw new Error("Error sending welcome email");
@@ -51,7 +52,7 @@ export const sendPasswordResetEmail = async (email, resetURL) => {
             html: PASSWORD_RESET_REQUEST_TEMPLATE.replace("resetURL", resetURL),
             category: "Password reset",
         });
-        console.log(response);
+        if (process.env.MODE == "development") console.log(response);
     } catch (error) {
         console.warn("Error sending password reset email", error.message);
         throw new Error("Error sending password reset email" + error.message);
@@ -68,9 +69,10 @@ export const sendResetSuccessEmail = async (email) => {
             html: PASSWORD_RESET_SUCCESS_TEMPLATE,
             category: "Reset successfully",
         });
-        console.log("Reset successful email sent successfully!", result);
+        if (process.env.MODE == "development") console.log("Reset successful email sent successfully!", result);
     } catch (error) {
-        console.log("error occured while sending reset successful email" + error.message);
+        if (process.env.MODE == "development")
+            console.log("error occured while sending reset successful email" + error.message);
         throw new Error(error.message);
     }
 };

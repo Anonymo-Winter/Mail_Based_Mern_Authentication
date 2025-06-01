@@ -46,8 +46,7 @@ function EmailVerificationPage() {
             navigate("/");
             toast.success("Email verified successfully");
         } catch (error) {
-            console.log("error in email verification", error.message);
-            console.log(error);
+            if (process.env.MODE == "development") console.log("error in email verification", error.message);
         }
     };
 

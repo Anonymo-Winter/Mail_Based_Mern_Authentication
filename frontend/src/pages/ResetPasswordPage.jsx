@@ -22,14 +22,12 @@ function ResetPasswordPage() {
         }
         try {
             await resetPassword(token, password);
-            toast.success(
-                "Password reset successfully, redirecting to login page..."
-            );
+            toast.success("Password reset successfully, redirecting to login page...");
             setTimeout(() => {
                 navigate("/login");
             }, 2000);
         } catch (error) {
-            console.log(error);
+            if (process.env.MODE == "development") console.log(error);
             toast.error("Error resetting password");
         }
     };
@@ -46,9 +44,7 @@ function ResetPasswordPage() {
                     Reset Password
                 </h2>
                 {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-                {message && (
-                    <p className="text-red-500 text-sm mb-4">{message}</p>
-                )}
+                {message && <p className="text-red-500 text-sm mb-4">{message}</p>}
                 <form onSubmit={handleSubmit}>
                     <Input
                         icon={Lock}

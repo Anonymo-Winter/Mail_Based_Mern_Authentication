@@ -21,7 +21,7 @@ const SignUpPage = () => {
             await signup(email, password, name);
             navigate("/verify-email");
         } catch (error) {
-            console.log(error);
+            if (process.env.MODE == "development") console.log(error);
         }
     };
     return (
@@ -59,11 +59,7 @@ const SignUpPage = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    {error && (
-                        <p className="text-red-500 font-semibold mt-2">
-                            {error}
-                        </p>
-                    )}
+                    {error && <p className="text-red-500 font-semibold mt-2">{error}</p>}
                     <PasswordStrengthMeter password={password} />
 
                     <motion.button
@@ -76,24 +72,14 @@ const SignUpPage = () => {
                         type="submit"
                         disabled={isLoading}
                     >
-                        {isLoading ? (
-                            <Loader
-                                className=" animate-spin mx-auto"
-                                size={24}
-                            />
-                        ) : (
-                            "Sign Up"
-                        )}
+                        {isLoading ? <Loader className=" animate-spin mx-auto" size={24} /> : "Sign Up"}
                     </motion.button>
                 </form>
             </div>
             <div className="px-8 py-4 bg-gray-900 bg-opacity-50 flex justify-center">
                 <p className="text-sm text-gray-400">
                     Already have an account?{" "}
-                    <Link
-                        to={"/login"}
-                        className="text-green-400 hover:underline"
-                    >
+                    <Link to={"/login"} className="text-green-400 hover:underline">
                         Login
                     </Link>
                 </p>
